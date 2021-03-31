@@ -1,0 +1,29 @@
+.App {
+  padding: 30px;
+  display: flex;
+}
+
+.App > div {
+  margin-right: 50px;
+}
+
+.btn-remove {
+  background-color: red;
+}
+
+.active-filter {
+  background-color: #109244;
+}
+
+.error {
+  border: red 2px solid;
+  outline: transparent;
+}
+
+.error-text {
+  color: red;
+}
+
+.is-done {
+  opacity: 0.5;
+}
