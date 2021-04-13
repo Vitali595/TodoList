@@ -1,4 +1,4 @@
-.App {
+/*.App {
   padding: 30px;
   display: flex;
 }
@@ -22,7 +22,7 @@
 
 .error-text {
   color: red;
-}
+}*/
 
 .is-done {
   opacity: 0.5;
