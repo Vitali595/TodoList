@@ -14,7 +14,7 @@ export type TaskType = {
 
 export type FilterValuesType = "all" | "active" | "completed"
 
-export type TodolistType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -29,7 +29,7 @@ function App() {
     const todoListID_1 = v1();
     const todoListID_2 = v1();
 
-    const [todoLists, setTodoLists] = useState<Array<TodolistType>>([
+    const [todoLists, setTodoLists] = useState<Array<TodoListType>>([
         {id: todoListID_1, title: "What to learn", filter: "all"},
         {id: todoListID_2, title: "What to buy", filter: "all"},
     ])
@@ -51,7 +51,6 @@ function App() {
         const updatedTasks = tasks[todoListID].filter(t => t.id !== taskID)
         setTasks({...tasks, [todoListID]: updatedTasks})
     }
-
     function addTask(title: string, todoListID: string) {
         const newTask: TaskType = {
             id: v1(),
@@ -61,12 +60,10 @@ function App() {
         const updatedTasks = [newTask, ...tasks[todoListID]]
         setTasks({...tasks, [todoListID]: updatedTasks})
     }
-
     function changeTaskStatus(taskID: string, newIsDoneValue: boolean, todoListID: string) {
         const updatedTasks = tasks[todoListID].map(t => t.id === taskID ? {...t, isDone: newIsDoneValue} : t)
         setTasks({...tasks, [todoListID]: updatedTasks})
     }
-
     function changeTaskTitle(taskID: string, title: string, todoListID: string) {
         const updatedTasks = tasks[todoListID].map(t => t.id === taskID ? {...t, title} : t)
         setTasks({...tasks, [todoListID]: updatedTasks})
@@ -76,28 +73,27 @@ function App() {
         const updatedTodoLists = todoLists.map(tl => tl.id === todoListID ? {...tl, filter: newFilterValue} : tl)
         setTodoLists(updatedTodoLists)
     }
-
     function removeTodoList(todolistID: string) {
         const updatedTodoLists = todoLists.filter(tl => tl.id !== todolistID)
         setTodoLists(updatedTodoLists)
         delete tasks[todolistID]
     }
-
     function addTodoList(title: string) {
         const newTodoListID = v1()
-        const newTodoList: TodolistType = {
+        const newTodoList: TodoListType = {
             id: newTodoListID, title, filter: "all"
         }
         setTodoLists([newTodoList, ...todoLists])
         setTasks({...tasks, [newTodoListID]: []})
     }
-
     function changeTodoListTitle(title: string, todoListID: string) {
         const updateTodoLists  = todoLists.map(tl => tl.id === todoListID ? {...tl, title} : tl)
         setTodoLists(updateTodoLists)
     }
 
-    function getTasksForTodoList(todoList: TodolistType) {
+// UI:
+
+    function getTasksForTodoList(todoList: TodoListType) {
         switch (todoList.filter) {
             case "active":
                 return tasks[todoList.id].filter(t => t.isDone === false)
@@ -107,7 +103,6 @@ function App() {
                 return tasks[todoList.id]
         }
     }
-// UI:
     const todolistComponents = todoLists.map(tl => {
         return (
             <Grid item key={tl.id}>
