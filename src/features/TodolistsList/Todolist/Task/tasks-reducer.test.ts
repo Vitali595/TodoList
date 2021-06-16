@@ -3,11 +3,10 @@ import {
     updateTaskAC,
     removeTaskAC,
     setTasksAC,
-    tasksReducer
+    tasksReducer, TasksStateType
 } from './tasks-reducer';
-import {TasksStateType} from '../AppWithRedux';
-import {addTodolistAC, removeTodoListAC, setTodolistsAC} from "./todolists-reducer";
-import {TaskPriorities, TaskStatuses} from "../stories/api/todolist-api";
+import {addTodolistAC, removeTodoListAC, setTodolistsAC} from "../todolists-reducer";
+import {TaskPriorities, TaskStatuses} from "../../../../api/todolist-api";
 
 let startState: TasksStateType = {}
 beforeEach(() => {
@@ -152,7 +151,6 @@ test('property with todolistId should be deleted', () => {
     const action = removeTodoListAC("todolistId2");
 
     const endState = tasksReducer(startState, action)
-
 
     const keys = Object.keys(endState);
 

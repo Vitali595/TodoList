@@ -1,14 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import {Checkbox, IconButton} from "@material-ui/core";
-import {EditableSpan} from "./EditableSpan";
+import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Delete} from "@material-ui/icons";
-import {TaskStatuses, TaskType} from "./stories/api/todolist-api";
+import {TaskStatuses, TaskType} from "../../../../api/todolist-api";
 
 export type TaskPropsType = {
     task: TaskType
     changeTaskStatus: (taskId: string, newIsDoneValue: boolean) => void
     removeTask: (taskId: string) => void
     changeTaskTitle: (taskId: string, newValue: string) => void
+    disabled?: boolean
 }
 
 export const Task = React.memo(({
@@ -32,9 +33,10 @@ export const Task = React.memo(({
                 color={"primary"}
                 checked={task.status === TaskStatuses.Completed}
                 onChange={changeTaskStatusHandler}
+                disabled={props.disabled}
             />
-            <EditableSpan title={task.title} changeTitle={changeTaskTitleHandler}/>
-            <IconButton onClick={removeTaskHandler}>
+            <EditableSpan title={task.title} changeTitle={changeTaskTitleHandler} disabled={props.disabled}/>
+            <IconButton onClick={removeTaskHandler} disabled={props.disabled}>
                 <Delete/>
             </IconButton>
         </li>
