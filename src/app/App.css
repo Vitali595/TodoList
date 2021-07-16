@@ -1,4 +1,5 @@
-/*.App {
+/*
+.App {
   padding: 30px;
   display: flex;
 }
@@ -7,23 +8,19 @@
   margin-right: 50px;
 }
 
-.btn-remove {
-  background-color: red;
+.error {
+  border: red 1px solid;
+}
+
+.error-message {
+  color: red;
 }
 
 .active-filter {
-  background-color: #109244;
+  background-color: aquamarine;
 }
-
-.error {
-  border: red 2px solid;
-  outline: transparent;
-}
-
-.error-text {
-  color: red;
-}*/
 
 .is-done {
   opacity: 0.5;
 }
+*/
