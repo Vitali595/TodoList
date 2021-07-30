@@ -11,33 +11,36 @@ import {
     Typography
 } from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {TodolistsList} from '../features/TodolistsList/TodolistsList'
+import {TodolistsList} from '../features/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from './store'
-import {initializeAppTC, RequestStatusType} from './app-reducer'
-import {BrowserRouter, NavLink, Route} from 'react-router-dom'
-import {Login} from '../features/Login/Login'
-import {logoutTC} from '../features/Login/auth-reducer'
+import {appActions} from '../features/Application'
+import {Route} from 'react-router-dom'
+import {authActions, Login} from '../features/Auth'
+import {selectIsInitialized, selectStatus} from '../features/Application/selectors'
+import {authSelectors} from '../features/Auth'
+import {useActions} from '../utils/redux-utils'
 
 type PropsType = {
     demo?: boolean
 }
 
 function App({demo = false}: PropsType) {
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-    const dispatch = useDispatch()
+    const status = useSelector(selectStatus)
+    const isInitialized = useSelector(selectIsInitialized)
+    const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
+
+    const {logout} = useActions(authActions)
+    const {initializeApp} = useActions(appActions)
 
     useEffect(() => {
         if (!demo) {
-            dispatch(initializeAppTC())
+            initializeApp()
         }
     }, [])
 
     const logoutHandler = useCallback(() => {
-        dispatch(logoutTC())
+        logout()
     }, [])
 
     if (!isInitialized) {
@@ -51,12 +54,12 @@ function App({demo = false}: PropsType) {
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
-                    <Toolbar>
+                    <Toolbar style={{justifyContent: "space-between"}}>
                         <IconButton edge="start" color="inherit" aria-label="menu">
                             <Menu/>
                         </IconButton>
                         <Typography variant="h6">
-                            News
+                            TODO-LIST
                         </Typography>
                         {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
                     </Toolbar>
